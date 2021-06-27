@@ -26,8 +26,8 @@ init {
 
 tick {
   if controls.reset_down?
-    $gtk.reset
-    return
+    $gtk.reset(seed: Time.now.to_i)
+    next
   end
 
   input
