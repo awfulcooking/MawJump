@@ -3,6 +3,7 @@ Maw!
 controls.define :jump, keyboard: :space, controller_one: :a, mouse: :button_left
 controls.define :left, keyboard: :a, controller_one: :left
 controls.define :right, keyboard: :d, controller_one: :right
+controls.define :reset, keyboard: :r, controller_one: :r1
 controls.define :quit, keyboard: :q, controller_one: :start
 
 init {
@@ -24,6 +25,11 @@ init {
 }
 
 tick {
+  if controls.reset_down?
+    $gtk.reset
+    return
+  end
+
   input
   calc
 
