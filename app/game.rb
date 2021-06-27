@@ -8,19 +8,19 @@ controls.define :quit, keyboard: :q, controller_one: :start
 init {
   $state.platforms = [platform!(), platform!(y: 300)]
   $state.gravity     = -0.3
-  $state.player.platforms_cleared ||= 0
-  $state.player.x  ||= 0
-  $state.player.y  ||= 100
-  $state.player.w  ||= 64
-  $state.player.h  ||= 64
-  $state.player.dy ||= 0
-  $state.player.dx ||= 0
+  $state.player.platforms_cleared = 0
+  $state.player.x  = 0
+  $state.player.y  = 100
+  $state.player.w  = 64
+  $state.player.h  = 64
+  $state.player.dy = 0
+  $state.player.dx = 0
   $state.player_jump_power           = 15
   $state.player_jump_power_duration  = 10
   $state.player_max_run_speed        = 5
   $state.player_speed_slowdown_rate  = 0.9
   $state.player_acceleration         = 1
-  $state.camera ||= { y: -100 }
+  $state.camera = { y: -100 }
 }
 
 tick {
