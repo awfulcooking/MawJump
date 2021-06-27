@@ -1,6 +1,6 @@
 Maw!
 
-controls.define :jump, keyboard: :space, controller_one: :a
+controls.define :jump, keyboard: :space, controller_one: :a, mouse: :button_left
 controls.define :left, keyboard: :a, controller_one: :left
 controls.define :right, keyboard: :d, controller_one: :right
 controls.define :quit, keyboard: :q, controller_one: :start
