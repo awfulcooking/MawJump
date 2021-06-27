@@ -139,6 +139,6 @@ def calc
         speed: 2 * player.platforms_cleared)
     end
   else
-    $state.hash.clear
+    $state.clear!
   end
 end
