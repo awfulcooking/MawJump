@@ -33,6 +33,11 @@ tick {
   input
   calc
 
+  solids << $state.background ||= [
+    0, 0, grid.w, grid.h,
+    rand(185), rand(175), rand(215), 155 + rand(100)
+  ]
+
   solids << $state.platforms.map do |p|
     [p.x + 300, p.y - $state.camera[:y], p.w, p.h]
   end
@@ -42,9 +47,7 @@ tick {
     $state.player.y - $state.camera[:y],
     $state.player.w,
     $state.player.h,
-    100,
-    100,
-    200
+    $state.player.color ||= [rand(255), rand(255), rand(255)]
   ]
 }
 
