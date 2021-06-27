@@ -7,6 +7,11 @@ controls.define :reset, keyboard: :r, controller_one: :r1, mouse: :button_right
 controls.define :quit, keyboard: :q, controller_one: :start
 
 init {
+  audio[:start_chime] = {
+    input: 'sounds/GameStart.wav',
+    pitch: 0.6 + rand() * 1.5
+  }
+
   $state.platforms = [platform!(), platform!(y: 300)]
   $state.gravity     = -0.4
   $state.player.platforms_cleared = 0
