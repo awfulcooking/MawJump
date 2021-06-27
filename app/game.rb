@@ -58,7 +58,10 @@ def input
   player = $state.player
 
   if controls.jump?
-    player.jumped_at ||= tick_count
+    if (player.jumped_at ||= tick_count) == tick_count
+      play_jump_sound
+    end
+
     if player.jumped_at.elapsed_time < $state.player_jump_power_duration && !player.falling
       player.dy = $state.player_jump_power
     end
@@ -66,6 +69,10 @@ def input
 
   if controls.jump_up?
     player.falling = true
+  end
+
+  if player.falling
+    stop_jump_sound
   end
 
   if controls.left?
@@ -140,9 +147,21 @@ def calc
         y: last_platform.y + 300,
         w: width,
         dx: 1.randomize(:sign),
-        speed: 2 * player.platforms_cleared)
+        speed: 1.5 * player.platforms_cleared)
     end
   else
     $state.clear!
   end
+end
+
+def play_jump_sound
+  audio[:jump] = {
+    input: 'sounds/jump.wav',
+    pitch: 0.4 + $state.player.platforms_cleared.to_f / 7,
+    speed: 2
+  }
+end
+
+def stop_jump_sound
+  audio[:jump] = nil
 end
