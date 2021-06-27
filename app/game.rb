@@ -71,8 +71,6 @@ def input
   else
     player.dx *= $state.player_speed_slowdown_rate
   end
-
-  puts "Left: #{controls.left} Right: #{controls.right} dx: #{'%.1f' % player.dx}"
 end
 
 def calc
