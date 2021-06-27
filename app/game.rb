@@ -8,18 +8,18 @@ controls.define :quit, keyboard: :q, controller_one: :start
 
 init {
   $state.platforms = [platform!(), platform!(y: 300)]
-  $state.gravity     = -0.3
+  $state.gravity     = -0.4
   $state.player.platforms_cleared = 0
   $state.player.x  = 0
   $state.player.y  = 100
-  $state.player.w  = 64
+  $state.player.w  = 16
   $state.player.h  = 64
-  $state.player.dy = 0
-  $state.player.dx = 0
-  $state.player_jump_power           = 15
+  $state.player.dy = 9
+  $state.player.dx = 35
+  $state.player_jump_power           = 13
   $state.player_jump_power_duration  = 10
-  $state.player_max_run_speed        = 5
-  $state.player_speed_slowdown_rate  = 0.9
+  $state.player_max_run_speed        = 15
+  $state.player_speed_slowdown_rate  = 0.88
   $state.player_acceleration         = 1
   $state.camera = { y: -100 }
 }
@@ -49,7 +49,7 @@ tick {
 }
 
 def platform! opts={}
-  {x: 0, y: 0, w: 700, h: 32, dx: 1, speed: 0, rect: nil}.merge! opts
+  {x: 0, y: 0, w: 700, h: 16, dx: 1, speed: 0, rect: nil}.merge! opts
 end
 
 def input
@@ -131,7 +131,7 @@ def calc
     has_platforms = platforms.find { |p| p.y > (player.y + 300) }
 
     if !has_platforms
-      width = 700 - (700 * (0.1 * player.platforms_cleared))
+      width = 700 - player.platforms_cleared * 50
       player.platforms_cleared += 1
       last_platform = platforms[-1]
 
