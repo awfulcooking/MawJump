@@ -60,6 +60,8 @@ def input
   if controls.jump?
     if (player.jumped_at ||= tick_count) == tick_count
       play_jump_sound
+      player.w += 2
+      player.x -= 1
     end
 
     if player.jumped_at.elapsed_time < $state.player_jump_power_duration && !player.falling
