@@ -12,6 +12,8 @@ init {
     pitch: 0.6 + rand() * 1.5
   }
 
+  $state.background = [rand(185), rand(175), rand(215), 155 + rand(100)]
+
   $state.platforms = [platform!(), platform!(y: 300)]
   $state.gravity     = -0.4
   $state.player.platforms_cleared = 0
@@ -26,22 +28,18 @@ init {
   $state.player_max_run_speed        = 15
   $state.player_speed_slowdown_rate  = 0.88
   $state.player_acceleration         = 1
+  $state.player.color                = [rand(255), rand(255), rand(255)]
   $state.camera = { y: -100 }
 }
 
 tick {
-  if controls.reset_down?
-    $gtk.reset(seed: rand(999999999))
-    next
-  end
+  init if controls.reset_down?
+  exit if controls.quit?
 
   input
   calc
 
-  solids << $state.background ||= [
-    0, 0, grid.w, grid.h,
-    rand(185), rand(175), rand(215), 155 + rand(100)
-  ]
+  outputs.background_color = $state.background
 
   solids << $state.platforms.map do |p|
     [p.x + 300, p.y - $state.camera[:y], p.w, p.h]
@@ -52,7 +50,7 @@ tick {
     $state.player.y - $state.camera[:y],
     $state.player.w,
     $state.player.h,
-    $state.player.color ||= [rand(255), rand(255), rand(255)]
+    $state.player.color
   ]
 }
 
@@ -61,8 +59,6 @@ def platform! opts={}
 end
 
 def input
-  exit if controls.quit?
-
   player = $state.player
 
   if controls.jump?
