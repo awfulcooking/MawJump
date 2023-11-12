@@ -2,9 +2,9 @@
 # Do not manually edit this file. Edit Smaug.toml instead.
 
 devid=moofee
-devtitle=mooff
+devtitle=mooff &lt;mooff@tipjar.cool&gt;
 gameid=MawJump
 gametitle=MawJump
-version=0.1.0
+version=0.2.0
 icon=metadata/icon.png
 compile_ruby=false

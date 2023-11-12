@@ -7,7 +7,7 @@ controls.define :reset, keyboard: :r, controller_one: :r1, mouse: :button_right
 controls.define :quit, keyboard: :q, controller_one: :start
 
 init {
-  audio[:start_chime] = {
+  $audio[:start_chime] = {
     input: 'sounds/GameStart.wav',
     pitch: 0.6 + rand() * 1.5
   }
@@ -39,19 +39,21 @@ tick {
   input
   calc
 
-  outputs.background_color = $state.background
+  $outputs.background_color = $state.background
 
-  solids << $state.platforms.map do |p|
+  $outputs.solids << $state.platforms.map do |p|
     [p.x + 300, p.y - $state.camera[:y], p.w, p.h]
   end
 
-  solids << [
+  $outputs.solids << [
     $state.player.x + 300,
     $state.player.y - $state.camera[:y],
     $state.player.w,
     $state.player.h,
     $state.player.color
   ]
+
+  $outputs.debug << $gtk.framerate_diagnostics_primitives
 }
 
 def platform! opts={}
@@ -156,12 +158,13 @@ def calc
         speed: 1.5 * player.platforms_cleared)
     end
   else
-    $state.clear!
+    # Player is more than 200px below the camera, GG!
+    init
   end
 end
 
 def play_jump_sound
-  audio[:jump] = {
+  $audio[:jump] = {
     input: 'sounds/jump.wav',
     pitch: 0.4 + $state.player.platforms_cleared.to_f / 7,
     speed: 2
@@ -169,5 +172,5 @@ def play_jump_sound
 end
 
 def stop_jump_sound
-  audio[:jump] = nil
+  $audio[:jump] = nil
 end
